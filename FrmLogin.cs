@@ -10,7 +10,8 @@ using System.Windows.Forms;
 
 using static System.Windows.Forms.AxHost;
 
-using System.Configuration;
+using simrs.Data;
+using System.Data.SqlClient;
 
 namespace simrs
 {
@@ -23,8 +24,34 @@ namespace simrs
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string dbHost = ConfigurationManager.AppSettings.Get("db_host");
-            MessageBox.Show(dbHost);
+            try
+            {
+                DataBase db = new DataBase();
+                db.Connect();
+
+
+                FrmUtama frmUtama = new FrmUtama();
+                frmUtama.Show();
+                this.Hide();
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR DATABASE", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+
         }
+
+        private void txtUserName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtUserPassword.Focus();
+                e.Handled = true;
+            }
+
+        }
+
     }
 }
