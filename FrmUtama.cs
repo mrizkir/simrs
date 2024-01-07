@@ -1,4 +1,5 @@
-﻿using System;
+﻿using simrs.Setting;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,11 @@ namespace simrs
 {
     public partial class FrmUtama : Form
     {
-        public FrmUtama()
+        internal static Dictionary<string, object> GlobalVariables;
+
+        public FrmUtama(Dictionary<string, object> globalVariables)
         {
+            GlobalVariables = globalVariables;
             InitializeComponent();
         }
 
@@ -22,6 +26,14 @@ namespace simrs
             this.Dispose();
             FrmLogin frmLogin = new FrmLogin();
             frmLogin.Show();
+        }
+
+        private void menuSettingUsers_Click(object sender, EventArgs e)
+        {
+            FrmUsers frmUsers = new FrmUsers();
+            frmUsers.MdiParent = this;
+            frmUsers.Show();
+            /*frmUsers.WindowState = FormWindowState.Maximized;*/
         }
     }
 }

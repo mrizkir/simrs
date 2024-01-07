@@ -51,8 +51,11 @@ namespace simrs
                 DataBase db = new DataBase();
                 db.Connect();
 
+                Dictionary<string, object> dataUsers = new Dictionary<string, object>(); ;
+
                 //tampilkan form utama
-                FrmUtama frmUtama = new FrmUtama();
+                FrmUtama frmUtama = new FrmUtama(dataUsers);
+                
                 frmUtama.Show();
                 this.Hide();
 
@@ -78,5 +81,9 @@ namespace simrs
 
         }
 
+        private void FrmLogin_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
