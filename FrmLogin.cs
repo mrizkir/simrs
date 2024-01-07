@@ -26,10 +26,32 @@ namespace simrs
         {
             try
             {
+                //validasi
+                if (string.IsNullOrEmpty(txtUserName.Text.Trim()))
+                {
+                    epUserName.SetError(txtUserName, "Username is required");
+                    return;
+                }
+                else
+                {
+                    epUserName.SetError(txtUserName, string.Empty);
+                }
+
+                if (string.IsNullOrEmpty(txtUserPassword.Text.Trim()))
+                {
+                    epUserPassword.SetError(txtUserPassword, "User password is required");
+                    return;
+                }
+                else
+                {
+                    epUserPassword.SetError(txtUserPassword, string.Empty);
+                }
+
+                //koneksi ke sql server
                 DataBase db = new DataBase();
                 db.Connect();
 
-
+                //tampilkan form utama
                 FrmUtama frmUtama = new FrmUtama();
                 frmUtama.Show();
                 this.Hide();
@@ -39,7 +61,10 @@ namespace simrs
             {
                 MessageBox.Show(ex.Message, "ERROR DATABASE", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 

@@ -28,11 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.txtUserPassword = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.epUserName = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epUserPassword = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.epUserName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epUserPassword)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -61,7 +66,7 @@
             this.txtUserName.Location = new System.Drawing.Point(153, 35);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(279, 30);
-            this.txtUserName.TabIndex = 0;            
+            this.txtUserName.TabIndex = 0;
             this.txtUserName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUserName_KeyDown);
             // 
             // txtUserPassword
@@ -84,6 +89,14 @@
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
+            // epUserName
+            // 
+            this.epUserName.ContainerControl = this;
+            // 
+            // epUserPassword
+            // 
+            this.epUserPassword.ContainerControl = this;
+            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -99,6 +112,8 @@
             this.Name = "FrmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
+            ((System.ComponentModel.ISupportInitialize)(this.epUserName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epUserPassword)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -111,5 +126,7 @@
         private System.Windows.Forms.TextBox txtUserName;
         private System.Windows.Forms.TextBox txtUserPassword;
         private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.ErrorProvider epUserName;
+        private System.Windows.Forms.ErrorProvider epUserPassword;
     }
 }
