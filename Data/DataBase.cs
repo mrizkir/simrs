@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Configuration;
+using System.Data;
 
 namespace simrs.Data
 {
@@ -16,19 +17,15 @@ namespace simrs.Data
          */
         private SqlConnection connection;
         /**
-         * Koneksi ke DBMS
-         * 
-        */
-        public void Connect()
-        {
-            string connectionString = GetConnectionString();
+         * Object data adapter
+         */
+        private SqlDataAdapter adapter;
 
-            using (this.connection = new SqlConnection())
-            {
-                this.connection.ConnectionString = connectionString;
-                this.connection.Open();
-            }
-        }
+        /**
+         * Object data sql command
+         */
+        SqlCommand command;
+
         static private string GetConnectionString()
         {
 
@@ -41,5 +38,42 @@ namespace simrs.Data
 
             return dsn;
         }
+
+        /**
+         * Koneksi ke DBMS
+         * 
+        */
+        public void Connect()
+        {
+            string connectionString = GetConnectionString();
+            this.connection = new SqlConnection();
+
+            this.connection.ConnectionString = connectionString;
+            this.connection.Open();
+        }
+        public void Close()
+        {
+            this.connection.Close();    
+        }
+        /**
+         * digunakan untuk mendapatkan data dari table
+         * @param sql perintah sql
+         */
+        public DataSet GetDataSet(string sql)
+        {
+            this.adapter = new SqlDataAdapter(sql, this.connection);
+            DataSet dataSet = new DataSet();
+            adapter.Fill(dataSet);
+
+            return dataSet;
+        }
+
+        public void InsertRecord(string sql)
+        {
+            this.command = new SqlCommand(sql, this.connection);
+            this.command.ExecuteNonQuery(); 
+        }
+
     }
+
 }
