@@ -28,71 +28,72 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.cmbRoles = new System.Windows.Forms.ComboBox();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.dgUsers = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
+            this.cmbRoles = new System.Windows.Forms.ComboBox();
             this.btnSimpan = new System.Windows.Forms.Button();
             this.rdLaki = new System.Windows.Forms.RadioButton();
             this.rdPerempuan = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtUserName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.txtUserPassword = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtNamaLengkap = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txtTempatLahir = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dgUsers = new System.Windows.Forms.DataGridView();
-            this.panel1.SuspendLayout();
+            this.dtTanggalLahir = new System.Windows.Forms.DateTimePicker();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.txtUserName = new System.Windows.Forms.TextBox();
+            this.epUserName = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epUserPassword = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epDefaultRole = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epEmail = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epNomorHP = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epNamaLengkap = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epTempatLahir = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtNomorHP = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgUsers)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.epUserName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epUserPassword)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epDefaultRole)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epEmail)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epNomorHP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epNamaLengkap)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epTempatLahir)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel1
+            // dgUsers
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panel1.Controls.Add(this.dateTimePicker1);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.textBox5);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.textBox4);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.textBox3);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.textBox2);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.txtUserName);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.rdPerempuan);
-            this.panel1.Controls.Add(this.rdLaki);
-            this.panel1.Controls.Add(this.btnSimpan);
-            this.panel1.Controls.Add(this.cmbRoles);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1054, 356);
-            this.panel1.TabIndex = 0;
-            // 
-            // cmbRoles
-            // 
-            this.cmbRoles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbRoles.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbRoles.FormattingEnabled = true;
-            this.cmbRoles.Location = new System.Drawing.Point(175, 111);
-            this.cmbRoles.Name = "cmbRoles";
-            this.cmbRoles.Size = new System.Drawing.Size(282, 32);
-            this.cmbRoles.TabIndex = 2;
+            this.dgUsers.AllowUserToAddRows = false;
+            this.dgUsers.AllowUserToDeleteRows = false;
+            this.dgUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgUsers.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgUsers.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgUsers.Location = new System.Drawing.Point(0, 362);
+            this.dgUsers.MultiSelect = false;
+            this.dgUsers.Name = "dgUsers";
+            this.dgUsers.ReadOnly = true;
+            this.dgUsers.RowHeadersWidth = 51;
+            this.dgUsers.RowTemplate.Height = 24;
+            this.dgUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgUsers.Size = new System.Drawing.Size(1054, 218);
+            this.dgUsers.TabIndex = 1;
             // 
             // label1
             // 
@@ -103,6 +104,17 @@
             this.label1.Size = new System.Drawing.Size(135, 24);
             this.label1.TabIndex = 0;
             this.label1.Text = "DEFAULT ROLE";
+            // 
+            // cmbRoles
+            // 
+            this.cmbRoles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRoles.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbRoles.FormattingEnabled = true;
+            this.cmbRoles.Location = new System.Drawing.Point(175, 111);
+            this.cmbRoles.Name = "cmbRoles";
+            this.cmbRoles.Size = new System.Drawing.Size(282, 32);
+            this.cmbRoles.TabIndex = 2;
+            this.cmbRoles.SelectedIndexChanged += new System.EventHandler(this.cmbRoles_SelectedIndexChanged);
             // 
             // btnSimpan
             // 
@@ -149,14 +161,6 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "JENIS KELAMIN";
             // 
-            // txtUserName
-            // 
-            this.txtUserName.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUserName.Location = new System.Drawing.Point(175, 12);
-            this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(282, 30);
-            this.txtUserName.TabIndex = 0;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -166,6 +170,16 @@
             this.label3.Size = new System.Drawing.Size(110, 24);
             this.label3.TabIndex = 7;
             this.label3.Text = "USER NAME";
+            // 
+            // txtUserPassword
+            // 
+            this.txtUserPassword.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUserPassword.Location = new System.Drawing.Point(175, 63);
+            this.txtUserPassword.Name = "txtUserPassword";
+            this.txtUserPassword.PasswordChar = '#';
+            this.txtUserPassword.Size = new System.Drawing.Size(282, 30);
+            this.txtUserPassword.TabIndex = 1;
+            this.txtUserPassword.TextChanged += new System.EventHandler(this.txtUserPassword_TextChanged);
             // 
             // label4
             // 
@@ -177,13 +191,13 @@
             this.label4.TabIndex = 9;
             this.label4.Text = "PASSWORD";
             // 
-            // textBox1
+            // txtNamaLengkap
             // 
-            this.textBox1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(175, 63);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(282, 30);
-            this.textBox1.TabIndex = 1;
+            this.txtNamaLengkap.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNamaLengkap.Location = new System.Drawing.Point(675, 15);
+            this.txtNamaLengkap.Name = "txtNamaLengkap";
+            this.txtNamaLengkap.Size = new System.Drawing.Size(304, 30);
+            this.txtNamaLengkap.TabIndex = 5;
             // 
             // label5
             // 
@@ -195,13 +209,13 @@
             this.label5.TabIndex = 11;
             this.label5.Text = "NAMA LENGKAP";
             // 
-            // textBox2
+            // txtEmail
             // 
-            this.textBox2.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(675, 15);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(304, 30);
-            this.textBox2.TabIndex = 5;
+            this.txtEmail.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Location = new System.Drawing.Point(175, 160);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(282, 30);
+            this.txtEmail.TabIndex = 3;
             // 
             // label6
             // 
@@ -213,14 +227,6 @@
             this.label6.TabIndex = 13;
             this.label6.Text = "EMAIL";
             // 
-            // textBox3
-            // 
-            this.textBox3.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(175, 160);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(282, 30);
-            this.textBox3.TabIndex = 3;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -231,13 +237,13 @@
             this.label7.TabIndex = 15;
             this.label7.Text = "NOMOR HP";
             // 
-            // textBox4
+            // txtTempatLahir
             // 
-            this.textBox4.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(175, 210);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(282, 30);
-            this.textBox4.TabIndex = 4;
+            this.txtTempatLahir.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTempatLahir.Location = new System.Drawing.Point(675, 119);
+            this.txtTempatLahir.Name = "txtTempatLahir";
+            this.txtTempatLahir.Size = new System.Drawing.Size(304, 30);
+            this.txtTempatLahir.TabIndex = 8;
             // 
             // label8
             // 
@@ -249,14 +255,6 @@
             this.label8.TabIndex = 17;
             this.label8.Text = "TEMPAT LAHIR";
             // 
-            // textBox5
-            // 
-            this.textBox5.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(675, 119);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(304, 30);
-            this.textBox5.TabIndex = 8;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -267,37 +265,88 @@
             this.label9.TabIndex = 19;
             this.label9.Text = "TANGGAL LAHIR";
             // 
-            // dateTimePicker1
+            // dtTanggalLahir
             // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(675, 160);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(304, 30);
-            this.dateTimePicker1.TabIndex = 9;
+            this.dtTanggalLahir.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtTanggalLahir.Location = new System.Drawing.Point(675, 160);
+            this.dtTanggalLahir.Name = "dtTanggalLahir";
+            this.dtTanggalLahir.Size = new System.Drawing.Size(304, 30);
+            this.dtTanggalLahir.TabIndex = 9;
             // 
-            // dgUsers
+            // panel1
             // 
-            this.dgUsers.AllowUserToAddRows = false;
-            this.dgUsers.AllowUserToDeleteRows = false;
-            this.dgUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgUsers.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgUsers.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgUsers.Location = new System.Drawing.Point(0, 362);
-            this.dgUsers.MultiSelect = false;
-            this.dgUsers.Name = "dgUsers";
-            this.dgUsers.RowHeadersWidth = 51;
-            this.dgUsers.RowTemplate.Height = 24;
-            this.dgUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgUsers.Size = new System.Drawing.Size(1054, 218);
-            this.dgUsers.TabIndex = 1;
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.Controls.Add(this.txtNomorHP);
+            this.panel1.Controls.Add(this.dtTanggalLahir);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.txtTempatLahir);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.txtEmail);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.txtNamaLengkap);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.txtUserPassword);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.txtUserName);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.rdPerempuan);
+            this.panel1.Controls.Add(this.rdLaki);
+            this.panel1.Controls.Add(this.btnSimpan);
+            this.panel1.Controls.Add(this.cmbRoles);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1054, 356);
+            this.panel1.TabIndex = 0;
+            // 
+            // txtUserName
+            // 
+            this.txtUserName.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUserName.Location = new System.Drawing.Point(175, 12);
+            this.txtUserName.Name = "txtUserName";
+            this.txtUserName.Size = new System.Drawing.Size(282, 30);
+            this.txtUserName.TabIndex = 0;
+            this.txtUserName.TextChanged += new System.EventHandler(this.txtUserName_TextChanged);
+            // 
+            // epUserName
+            // 
+            this.epUserName.ContainerControl = this;
+            // 
+            // epUserPassword
+            // 
+            this.epUserPassword.ContainerControl = this;
+            // 
+            // epDefaultRole
+            // 
+            this.epDefaultRole.ContainerControl = this;
+            // 
+            // epEmail
+            // 
+            this.epEmail.ContainerControl = this;
+            // 
+            // epNomorHP
+            // 
+            this.epNomorHP.ContainerControl = this;
+            // 
+            // epNamaLengkap
+            // 
+            this.epNamaLengkap.ContainerControl = this;
+            // 
+            // epTempatLahir
+            // 
+            this.epTempatLahir.ContainerControl = this;
+            // 
+            // txtNomorHP
+            // 
+            this.txtNomorHP.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNomorHP.Location = new System.Drawing.Point(175, 207);
+            this.txtNomorHP.Mask = "0000-00000000";
+            this.txtNomorHP.Name = "txtNomorHP";
+            this.txtNomorHP.Size = new System.Drawing.Size(282, 30);
+            this.txtNomorHP.TabIndex = 20;
             // 
             // FrmUsers
             // 
@@ -313,36 +362,49 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "USERS";
             this.Load += new System.EventHandler(this.FrmUsers_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgUsers)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgUsers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epUserName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epUserPassword)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epDefaultRole)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epEmail)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epNomorHP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epNamaLengkap)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epTempatLahir)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridView dgUsers;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbRoles;
         private System.Windows.Forms.Button btnSimpan;
-        private System.Windows.Forms.RadioButton rdPerempuan;
         private System.Windows.Forms.RadioButton rdLaki;
+        private System.Windows.Forms.RadioButton rdPerempuan;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtUserName;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtUserPassword;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtNamaLengkap;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txtTempatLahir;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DataGridView dgUsers;
+        private System.Windows.Forms.DateTimePicker dtTanggalLahir;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox txtUserName;
+        private System.Windows.Forms.ErrorProvider epUserName;
+        private System.Windows.Forms.ErrorProvider epUserPassword;
+        private System.Windows.Forms.ErrorProvider epDefaultRole;
+        private System.Windows.Forms.ErrorProvider epEmail;
+        private System.Windows.Forms.ErrorProvider epNomorHP;
+        private System.Windows.Forms.ErrorProvider epNamaLengkap;
+        private System.Windows.Forms.ErrorProvider epTempatLahir;
+        private System.Windows.Forms.MaskedTextBox txtNomorHP;
     }
 }

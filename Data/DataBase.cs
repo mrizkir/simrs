@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using System.Configuration;
 using System.Data;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace simrs.Data
 {
@@ -74,6 +75,20 @@ namespace simrs.Data
             this.command.ExecuteNonQuery(); 
         }
 
+        public bool checkRecordIsExist(string sql)
+        {
+            bool exist = false;
+
+            this.command = new SqlCommand(sql, this.connection);
+            this.command.ExecuteNonQuery();
+
+            int jumlahRecord = (int)this.command.ExecuteScalar();
+            if (jumlahRecord > 0)
+            { 
+                exist = true; 
+            }
+            return exist;
+        }
     }
 
 }

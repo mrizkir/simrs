@@ -21,12 +21,12 @@ namespace simrs.Setting
 
         void setDaftarRoles()
         {
-            Dictionary<int, string> daftarRoles = new Dictionary<int, string>();
+            Dictionary<string, string> daftarRoles = new Dictionary<string, string>();
 
-            daftarRoles.Add(-1, "- PILIH ROLE -");
-            daftarRoles.Add(1, "SUPERADMIN");
-            daftarRoles.Add(2, "DOKTER");
-            daftarRoles.Add(3, "PASIEN");
+            daftarRoles.Add("none", "- PILIH ROLE -");
+            daftarRoles.Add("superadmin", "SUPERADMIN");
+            daftarRoles.Add("dokter", "DOKTER");
+            daftarRoles.Add("pasien", "PASIEN");
 
             this.cmbRoles.DataSource = new BindingSource(daftarRoles, null);
             this.cmbRoles.DisplayMember = "Value";
@@ -64,6 +64,61 @@ namespace simrs.Setting
 
         }
 
+        /// <summary>
+        /// validasi form
+        /// </summary>
+        /// <param name="mode"></param>
+        bool validasiFrmUser(string mode, DataBase DB)
+        {
+            bool isValid = true;
+
+            //cek username
+            string userName = this.txtUserName.Text;
+            
+            if (string.IsNullOrEmpty(txtUserName.Text.Trim()))
+            {
+                epUserName.SetError(txtUserName, "Username jangan kosong silahkan isi");
+                isValid = false;
+            }
+            else if(DB.checkRecordIsExist($"SELECT COUNT(id) FROM users WHERE username='{userName}'"))
+            {
+                epUserName.SetError(txtUserName, $"Username ({userName}) telah tersedia. Silahkan ganti dengan yang lain");
+                isValid = false;
+            }
+            else
+            {
+                epUserName.SetError(txtUserName, string.Empty);
+            }
+
+            //cek user password
+            if (string.IsNullOrEmpty(txtUserPassword.Text.Trim()))
+            {
+                epUserPassword.SetError(txtUserPassword, "Password user jangan kosong silahkan isi");
+                isValid = false;
+            }
+            else if (txtUserPassword.Text.Trim().Length <= 8)    
+            {
+                epUserPassword.SetError(txtUserPassword, "Panjang password user diharapkan lebih dari 8");
+                isValid = false;
+            }
+            else
+            {
+                epUserPassword.SetError(txtUserPassword, string.Empty);
+            }
+
+            //roles user
+            string role = ((KeyValuePair<string, string>)cmbRoles.SelectedItem).Key;
+            if(role.Equals("none"))
+            {
+                epDefaultRole.SetError(cmbRoles, "Default role dari user mohon untuk dipilih");
+                isValid = false;
+            }
+            else
+            {
+                epDefaultRole.SetError(cmbRoles, string.Empty);
+            }
+            return isValid;
+        }
         private void FrmUsers_Load(object sender, EventArgs e)
         {
             try
@@ -84,10 +139,43 @@ namespace simrs.Setting
         private void btnSimpan_Click(object sender, EventArgs e)
         {
             DataBase DB = new DataBase();
+            DB.Connect();
             try
             {
-                DB.Connect();
-                this.populateData();
+                bool isValid = this.validasiFrmUser("insert", DB);
+
+                if(isValid)
+                {
+                    string userName = this.txtUserName.Text;
+                    string userPassword = this.txtUserPassword.Text;
+
+                    int key = ((KeyValuePair<int, string>)cmbRoles.SelectedItem).Key;
+                    string role = ((KeyValuePair<int, string>)cmbRoles.SelectedItem).Value;
+
+                    string email = this.txtEmail.Text;
+                    string nomorHP = this.txtNomorHP.Text.Replace("-", string.Empty);
+                    string namaLengkap = this.txtNamaLengkap.Text;
+                    char JK = 'L';
+                    if (rdPerempuan.Checked)
+                    {
+                        JK = 'P';
+                    }
+
+                    string tempatLahir = this.txtTempatLahir.Text;
+                    string tanggaLahir = this.dtTanggalLahir.Value.ToString("yyyy-MM-dd");
+
+                    string sql = $"INSERT INTO users (username, password, default_role, email, nomor_hp, nama_lengkap, jk, tempat_lahir, tanggal_lahir, created_at, updated_at) VALUES ('{userName}','{userPassword}','{role}','{email}','{nomorHP}','{namaLengkap}','{JK}','{tempatLahir}','{tanggaLahir}', GETDATE(), GETDATE())";
+
+                    DB.InsertRecord(sql);
+
+                    MessageBox.Show($"Data user ({userName}) berhasil ditambah", "TAMBAH USER", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    this.populateData();
+                }
+                else
+                {
+                    throw new Exception("Data user kurang lengkap atau terdapat kesalahan, silahkan dicek kembali.");
+                }
             }
             catch (SqlException ex)
             {
@@ -101,6 +189,21 @@ namespace simrs.Setting
             { 
                 DB.Close();
             }
+        }
+
+        private void txtUserName_TextChanged(object sender, EventArgs e)
+        {
+            epUserName.SetError(txtUserName, string.Empty);
+        }
+
+        private void txtUserPassword_TextChanged(object sender, EventArgs e)
+        {
+            epUserPassword.SetError(txtUserPassword, string.Empty);
+        }
+
+        private void cmbRoles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            epDefaultRole.SetError(cmbRoles, string.Empty);
         }
     }
 }
