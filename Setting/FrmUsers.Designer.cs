@@ -29,8 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dgUsers = new System.Windows.Forms.DataGridView();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.cmsDgUsers = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.detailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbRoles = new System.Windows.Forms.ComboBox();
             this.btnSimpan = new System.Windows.Forms.Button();
@@ -50,6 +53,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.dtTanggalLahir = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtNomorHP = new System.Windows.Forms.MaskedTextBox();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.epUserName = new System.Windows.Forms.ErrorProvider(this.components);
             this.epUserPassword = new System.Windows.Forms.ErrorProvider(this.components);
@@ -58,8 +62,8 @@
             this.epNomorHP = new System.Windows.Forms.ErrorProvider(this.components);
             this.epNamaLengkap = new System.Windows.Forms.ErrorProvider(this.components);
             this.epTempatLahir = new System.Windows.Forms.ErrorProvider(this.components);
-            this.txtNomorHP = new System.Windows.Forms.MaskedTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dgUsers)).BeginInit();
+            this.dgUsers = new System.Windows.Forms.DataGridView();
+            this.cmsDgUsers.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epUserName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epUserPassword)).BeginInit();
@@ -68,32 +72,40 @@
             ((System.ComponentModel.ISupportInitialize)(this.epNomorHP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epNamaLengkap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epTempatLahir)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgUsers)).BeginInit();
             this.SuspendLayout();
             // 
-            // dgUsers
+            // cmsDgUsers
             // 
-            this.dgUsers.AllowUserToAddRows = false;
-            this.dgUsers.AllowUserToDeleteRows = false;
-            this.dgUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgUsers.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dgUsers.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgUsers.Location = new System.Drawing.Point(0, 362);
-            this.dgUsers.MultiSelect = false;
-            this.dgUsers.Name = "dgUsers";
-            this.dgUsers.ReadOnly = true;
-            this.dgUsers.RowHeadersWidth = 51;
-            this.dgUsers.RowTemplate.Height = 24;
-            this.dgUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgUsers.Size = new System.Drawing.Size(1054, 218);
-            this.dgUsers.TabIndex = 1;
+            this.cmsDgUsers.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsDgUsers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.detailToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.cmsDgUsers.Name = "cmsDgUsers";
+            this.cmsDgUsers.Size = new System.Drawing.Size(123, 76);
+            // 
+            // detailToolStripMenuItem
+            // 
+            this.detailToolStripMenuItem.Name = "detailToolStripMenuItem";
+            this.detailToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
+            this.detailToolStripMenuItem.Text = "Detail";
+            this.detailToolStripMenuItem.ToolTipText = "Detail Data User";
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.ToolTipText = "Ubah Data User";
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.ToolTipText = "Hapus Data User";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // label1
             // 
@@ -216,6 +228,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(282, 30);
             this.txtEmail.TabIndex = 3;
+            this.txtEmail.TextChanged += new System.EventHandler(this.txtEmail_TextChanged);
             // 
             // label6
             // 
@@ -299,8 +312,17 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1054, 356);
+            this.panel1.Size = new System.Drawing.Size(1007, 356);
             this.panel1.TabIndex = 0;
+            // 
+            // txtNomorHP
+            // 
+            this.txtNomorHP.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNomorHP.Location = new System.Drawing.Point(175, 207);
+            this.txtNomorHP.Mask = "0000-00000000";
+            this.txtNomorHP.Name = "txtNomorHP";
+            this.txtNomorHP.Size = new System.Drawing.Size(282, 30);
+            this.txtNomorHP.TabIndex = 4;
             // 
             // txtUserName
             // 
@@ -339,20 +361,38 @@
             // 
             this.epTempatLahir.ContainerControl = this;
             // 
-            // txtNomorHP
+            // dgUsers
             // 
-            this.txtNomorHP.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNomorHP.Location = new System.Drawing.Point(175, 207);
-            this.txtNomorHP.Mask = "0000-00000000";
-            this.txtNomorHP.Name = "txtNomorHP";
-            this.txtNomorHP.Size = new System.Drawing.Size(282, 30);
-            this.txtNomorHP.TabIndex = 20;
+            this.dgUsers.AllowUserToAddRows = false;
+            this.dgUsers.AllowUserToDeleteRows = false;
+            this.dgUsers.AllowUserToResizeRows = false;
+            this.dgUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgUsers.ContextMenuStrip = this.cmsDgUsers;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgUsers.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dgUsers.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgUsers.Location = new System.Drawing.Point(0, 362);
+            this.dgUsers.MultiSelect = false;
+            this.dgUsers.Name = "dgUsers";
+            this.dgUsers.ReadOnly = true;
+            this.dgUsers.RowHeadersWidth = 51;
+            this.dgUsers.RowTemplate.Height = 24;
+            this.dgUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgUsers.Size = new System.Drawing.Size(1007, 321);
+            this.dgUsers.TabIndex = 1;
+            this.dgUsers.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgUsers_CellMouseUp);
             // 
             // FrmUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1054, 580);
+            this.ClientSize = new System.Drawing.Size(1007, 683);
             this.Controls.Add(this.dgUsers);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -362,7 +402,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "USERS";
             this.Load += new System.EventHandler(this.FrmUsers_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgUsers)).EndInit();
+            this.cmsDgUsers.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epUserName)).EndInit();
@@ -372,12 +412,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.epNomorHP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epNamaLengkap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epTempatLahir)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgUsers)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dgUsers;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbRoles;
         private System.Windows.Forms.Button btnSimpan;
@@ -406,5 +446,10 @@
         private System.Windows.Forms.ErrorProvider epNamaLengkap;
         private System.Windows.Forms.ErrorProvider epTempatLahir;
         private System.Windows.Forms.MaskedTextBox txtNomorHP;
+        private System.Windows.Forms.ContextMenuStrip cmsDgUsers;
+        private System.Windows.Forms.ToolStripMenuItem detailToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.DataGridView dgUsers;
     }
 }

@@ -74,6 +74,12 @@ namespace simrs.Data
             this.command = new SqlCommand(sql, this.connection);
             this.command.ExecuteNonQuery(); 
         }
+        
+        public void DeleteRecord(string sql)
+        {
+            this.command = new SqlCommand(sql, this.connection);
+            this.command.ExecuteNonQuery(); 
+        }
 
         public bool checkRecordIsExist(string sql)
         {

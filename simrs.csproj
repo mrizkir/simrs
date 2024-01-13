@@ -88,6 +88,7 @@
     <Compile Include="FrmUtama.Designer.cs">
       <DependentUpon>FrmUtama.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\HelperValidation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setting\FrmUsers.cs">
