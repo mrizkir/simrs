@@ -13,11 +13,11 @@ namespace simrs
 {
     public partial class FrmUtama : Form
     {
-        internal static Dictionary<string, object> GlobalVariables;
+        internal static Dictionary<string, object> DataUser;
 
-        public FrmUtama(Dictionary<string, object> globalVariables)
+        public FrmUtama(Dictionary<string, object> dataUser)
         {
-            GlobalVariables = globalVariables;
+            DataUser = dataUser;
             InitializeComponent();
         }
 
@@ -34,6 +34,13 @@ namespace simrs
             frmUsers.MdiParent = this;
             frmUsers.Show();
             /*frmUsers.WindowState = FormWindowState.Maximized;*/
+        }
+
+        private void pROFILEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmProfile frmProfile = new FrmProfile(DataUser);
+            frmProfile.MdiParent = this;
+            frmProfile.Show();
         }
     }
 }

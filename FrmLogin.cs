@@ -12,6 +12,7 @@ using static System.Windows.Forms.AxHost;
 
 using simrs.Data;
 using System.Data.SqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace simrs
 {
@@ -24,8 +25,12 @@ namespace simrs
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            DataBase DB = new DataBase();
+           
             try
             {
+                DB.Connect();
+
                 //validasi
                 if (string.IsNullOrEmpty(txtUserName.Text.Trim()))
                 {
@@ -47,14 +52,27 @@ namespace simrs
                     epUserPassword.SetError(txtUserPassword, string.Empty);
                 }
 
-                //koneksi ke sql server
-                DataBase db = new DataBase();
-                db.Connect();
+                var paramList = new List<SqlParameter>();
+                paramList.Add(new SqlParameter("@pUsername", txtUserName.Text.Trim()));
+                paramList.Add(new SqlParameter("@pPassword", txtUserPassword.Text.Trim()));
+                SqlParameter output = new SqlParameter("@responseMessage", txtUserPassword.Text.Trim());
+                output.Direction = ParameterDirection.Output;
+                paramList.Add(output);
 
-                Dictionary<string, object> dataUsers = new Dictionary<string, object>(); ;
+                DB.ExecuteStoredProcedure("uspLogin", paramList);
+                
+                if(output.Value.ToString() == "0")
+                {
+                    throw new Exception("Username atau Password SALAH silahkan isi dengan yang benar !!!");
+                }
+
+                int userid = Convert.ToInt32(output.Value);
+                
+                Dictionary<string, object> dataUser = new Dictionary<string, object>(); ;
+                dataUser.Add("data_user", userid);
 
                 //tampilkan form utama
-                FrmUtama frmUtama = new FrmUtama(dataUsers);
+                FrmUtama frmUtama = new FrmUtama(dataUser);
                 
                 frmUtama.Show();
                 this.Hide();
@@ -68,7 +86,10 @@ namespace simrs
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            finally
+            {
+                DB.Close();
+            }
         }
 
         private void txtUserName_KeyDown(object sender, KeyEventArgs e)

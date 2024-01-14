@@ -175,9 +175,10 @@ namespace simrs.Setting
         private void btnSimpan_Click(object sender, EventArgs e)
         {
             DataBase DB = new DataBase();
-            DB.Connect();
             try
             {
+                DB.Connect();
+
                 bool isValid = this.ValidasiFrmUser("insert", DB);
 
                 if(isValid)
@@ -195,13 +196,21 @@ namespace simrs.Setting
                     {
                         JK = 'P';
                     }
-
                     string tempatLahir = this.txtTempatLahir.Text;
                     string tanggaLahir = this.dtTanggalLahir.Value.ToString("yyyy-MM-dd");
 
-                    string sql = $"INSERT INTO users (username, password, default_role, email, nomor_hp, nama_lengkap, jk, tempat_lahir, tanggal_lahir, created_at, updated_at) VALUES ('{userName}','{userPassword}','{role}','{email}','{nomorHP}','{namaLengkap}','{JK}','{tempatLahir}','{tanggaLahir}', GETDATE(), GETDATE())";
+                    var paramList = new List<SqlParameter>();
+                    paramList.Add(new SqlParameter("@pUsername", userName));
+                    paramList.Add(new SqlParameter("@pPassword", userPassword));
+                    paramList.Add(new SqlParameter("@pDefaultRole", role));
+                    paramList.Add(new SqlParameter("@pEmail", email));
+                    paramList.Add(new SqlParameter("@pNomorHP", nomorHP));
+                    paramList.Add(new SqlParameter("@pNamaLengkap", namaLengkap));
+                    paramList.Add(new SqlParameter("@pJK", JK));
+                    paramList.Add(new SqlParameter("@pTempatLahir", tempatLahir));
+                    paramList.Add(new SqlParameter("@pTanggalLahir", tanggaLahir));
 
-                    DB.InsertRecord(sql);
+                    DB.ExecuteStoredProcedure("uspAddUser", paramList);
 
                     MessageBox.Show($"Data user ({userName}) berhasil ditambah", "TAMBAH USER", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

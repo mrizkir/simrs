@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuSetting = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSettingUsers = new System.Windows.Forms.ToolStripMenuItem();
+            this.pROFILEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -41,13 +42,14 @@
             this.menuSetting});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // menuSetting
             // 
             this.menuSetting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pROFILEToolStripMenuItem,
             this.menuSettingUsers});
             this.menuSetting.Name = "menuSetting";
             this.menuSetting.Size = new System.Drawing.Size(80, 24);
@@ -59,6 +61,13 @@
             this.menuSettingUsers.Size = new System.Drawing.Size(224, 26);
             this.menuSettingUsers.Text = "USERS";
             this.menuSettingUsers.Click += new System.EventHandler(this.menuSettingUsers_Click);
+            // 
+            // pROFILEToolStripMenuItem
+            // 
+            this.pROFILEToolStripMenuItem.Name = "pROFILEToolStripMenuItem";
+            this.pROFILEToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.pROFILEToolStripMenuItem.Text = "PROFILE";
+            this.pROFILEToolStripMenuItem.Click += new System.EventHandler(this.pROFILEToolStripMenuItem_Click);
             // 
             // FrmUtama
             // 
@@ -86,5 +95,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem menuSetting;
         private System.Windows.Forms.ToolStripMenuItem menuSettingUsers;
+        private System.Windows.Forms.ToolStripMenuItem pROFILEToolStripMenuItem;
     }
 }
