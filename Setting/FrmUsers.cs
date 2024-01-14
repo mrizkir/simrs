@@ -16,7 +16,15 @@ namespace simrs.Setting
 {
     public partial class FrmUsers : Form
     {
+        /**
+         * index atau nomor baris
+         */
         int rowIndex = -1;
+
+        /**
+         * variabel untuk menyimpan id lama (dipakai saat edit record) 
+         */
+        string oldUserid;
 
         public FrmUsers()
         {
@@ -234,12 +242,65 @@ namespace simrs.Setting
                 DB.Close();
             }
         }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string ID = this.dgUsers.Rows[this.rowIndex].Cells[0].Value.ToString();
+            this.oldUserid = ID;
+
+            string userName = this.dgUsers.Rows[this.rowIndex].Cells[1].Value.ToString();
+
+            DataBase DB = new DataBase();
+            
+            try
+            {
+                DB.Connect();
+                string sql = $"SELECT id, username, default_role, email, nomor_hp, nama_lengkap, jk, tempat_lahir, tanggal_lahir FROM users WHERE id='{ID}'";
+                Dictionary<string, string> dataUser = DB.GetSingleRecord(sql);
+
+                this.txtUserName.Text = dataUser["username"];
+                this.txtUserName.Enabled = dataUser["id"] != "1";
+                this.cmbRoles.SelectedIndex= this.cmbRoles.FindStringExact(dataUser["default_role"]);
+                this.cmbRoles.Enabled = dataUser["id"] != "1";
+                this.txtEmail.Text = dataUser["email"];
+                this.txtNomorHP.Text = dataUser["nomor_hp"];
+                this.txtNamaLengkap.Text = dataUser["nama_lengkap"];
+                if (dataUser["jk"] == "L")
+                {
+                    this.rdLaki.Checked = true;
+                }
+                else
+                {
+                    this.rdPerempuan.Checked = true;
+                }
+                this.txtNamaLengkap.Text = dataUser["nama_lengkap"];
+                this.txtTempatLahir.Text = dataUser["tempat_lahir"];
+                this.dtTanggalLahir.Value = DateTime.Parse(dataUser["tanggal_lahir"]);
+
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR DATABASE", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                DB.Close();
+            }
+           
+        }
+
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DataBase DB = new DataBase();
-            DB.Connect();
+            
             try
             {
+                DB.Connect();
                 if (this.rowIndex > -1)
                 {
                     string ID = this.dgUsers.Rows[this.rowIndex].Cells[0].Value.ToString();
@@ -248,7 +309,10 @@ namespace simrs.Setting
 
                     if (dr == DialogResult.Yes)
                     {
-
+                        if (ID == "1")
+                        {
+                            throw new Exception($"Data User dengan ID({ID}) tidak bisa dihapus");
+                        }
                         string sql = $"DELETE FROM users WHERE ID='{ID}'";
 
                         DB.DeleteRecord(sql);
@@ -309,6 +373,5 @@ namespace simrs.Setting
 
         }
 
-        
     }
 }

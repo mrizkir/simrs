@@ -56,38 +56,6 @@ namespace simrs.Data
         {
             this.connection.Close();    
         }
-        public static SqlParameter CreateSqlParameter(string parameterName, object value, System.Data.SqlDbType sqlDbType, int size = 0)
-        {
-            SqlParameter parameter = new SqlParameter(parameterName, sqlDbType);
-            parameter.Value = value ?? DBNull.Value;
-
-            if (size > 0)
-            {
-                parameter.Size = size;
-            }
-
-            return parameter;
-        }
-        private List<SqlParameter> GenerateSQLParameters(object model)
-        {
-            var paramList = new List<SqlParameter>();
-            Type modelType = model.GetType();
-            var properties = modelType.GetProperties();
-            foreach (var property in properties)
-            {
-                if (property.GetValue(model) == null)
-                {
-                    paramList.Add(new SqlParameter(property.Name, DBNull.Value));
-                }
-                else
-                {
-                    paramList.Add(new SqlParameter(property.Name, property.GetValue(model)));
-                }
-            }
-            return paramList;
-
-        }
-
         /**
          * digunakan untuk mendapatkan data dari table
          * @param sql perintah sql
@@ -100,7 +68,25 @@ namespace simrs.Data
 
             return dataSet;
         }
+        public Dictionary<string, string> GetSingleRecord(string sql)
+        {
+            Dictionary<string, string> singleRecord = new Dictionary<string, string>();
 
+            using (this.command = new SqlCommand(sql, this.connection))
+            {
+                using (SqlDataReader reader = this.command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            singleRecord.Add(reader.GetName(i), reader[i].ToString());
+                        }
+                    }
+                }
+            }
+            return singleRecord;
+        }
         public void InsertRecord(string sql)
         {
             this.command = new SqlCommand(sql, this.connection);

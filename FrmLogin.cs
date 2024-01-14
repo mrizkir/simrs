@@ -106,5 +106,15 @@ namespace simrs
         {
             Application.Exit();
         }
+
+        private void txtUserName_TextChanged(object sender, EventArgs e)
+        {
+            epUserName.SetError(txtUserName, null);
+        }
+
+        private void txtUserPassword_TextChanged(object sender, EventArgs e)
+        {
+            epUserPassword.SetError(txtUserPassword, null);
+        }
     }
 }
