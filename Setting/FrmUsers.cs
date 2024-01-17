@@ -22,9 +22,9 @@ namespace simrs.Setting
         int rowIndex = -1;
 
         /**
-         * variabel untuk menyimpan id lama (dipakai saat edit record) 
+         * old data user
          */
-        string oldUserid;
+        Dictionary<string, string> dataUser = null;
 
         public FrmUsers()
         {
@@ -87,6 +87,28 @@ namespace simrs.Setting
         /// validasi form
         /// </summary>
         /// <param name="mode"></param>
+        void clearFrmUser()
+        {
+            if(this.dataUser == null)
+            {
+                this.txtUserName.Clear();
+                this.txtUserPassword.Clear();
+                this.txtEmail.Clear();
+                this.txtNamaLengkap.Clear();
+                this.txtTempatLahir.Clear();
+                this.dtTanggalLahir.Value = DateTime.Now;
+                this.txtNomorHP.Clear();
+            }
+            else
+            {
+                this.txtUserPassword.Clear();
+                this.txtEmail.Clear();
+                this.txtNamaLengkap.Clear();
+                this.txtTempatLahir.Clear();
+                this.dtTanggalLahir.Value = DateTime.Now;
+                this.txtNomorHP.Clear();
+            }
+        }
         bool ValidasiFrmUser(string mode, DataBase DB)
         {
             bool isValid = true;
@@ -94,37 +116,45 @@ namespace simrs.Setting
             //cek username
             string userName = this.txtUserName.Text;
             string userEmail= this.txtEmail.Text;
-            
-            if (string.IsNullOrEmpty(txtUserName.Text.Trim()))
+
+            if (this.dataUser == null)
             {
-                epUserName.SetError(txtUserName, "Username jangan kosong silahkan isi");
-                isValid = false;
-            }
-            else if(DB.checkRecordIsExist($"SELECT COUNT(id) FROM users WHERE username='{userName}'"))
-            {
-                epUserName.SetError(txtUserName, $"Username ({userName}) telah tersedia. Silahkan ganti dengan yang lain");
-                isValid = false;
-            }
-            else
-            {
-                epUserName.SetError(txtUserName, string.Empty);
+
+                if (string.IsNullOrEmpty(txtUserName.Text.Trim()))
+                {
+                    epUserName.SetError(txtUserName, "Username jangan kosong silahkan isi");
+                    isValid = false;
+                }
+                else if (DB.checkRecordIsExist($"SELECT COUNT(id) FROM users WHERE username='{userName}'"))
+                {
+                    epUserName.SetError(txtUserName, $"Username ({userName}) telah tersedia. Silahkan ganti dengan yang lain");
+                    isValid = false;
+                }
+                else
+                {
+                    epUserName.SetError(txtUserName, string.Empty);
+                }
             }
 
-            //cek user password
-            if (string.IsNullOrEmpty(txtUserPassword.Text.Trim()))
+            if (this.dataUser == null)
             {
-                epUserPassword.SetError(txtUserPassword, "Password user jangan kosong silahkan isi");
-                isValid = false;
+                //cek user password
+                if (string.IsNullOrEmpty(txtUserPassword.Text.Trim()))
+                {
+                    epUserPassword.SetError(txtUserPassword, "Password user jangan kosong silahkan isi");
+                    isValid = false;
+                }
+                else if (txtUserPassword.Text.Trim().Length < 8)
+                {
+                    epUserPassword.SetError(txtUserPassword, "Panjang password user diharapkan lebih dari 8");
+                    isValid = false;
+                }
+                else
+                {
+                    epUserPassword.SetError(txtUserPassword, string.Empty);
+                }
             }
-            else if (txtUserPassword.Text.Trim().Length < 8)    
-            {
-                epUserPassword.SetError(txtUserPassword, "Panjang password user diharapkan lebih dari 8");
-                isValid = false;
-            }
-            else
-            {
-                epUserPassword.SetError(txtUserPassword, string.Empty);
-            }
+            
 
             //roles user
             string role = ((KeyValuePair<string, string>)cmbRoles.SelectedItem).Key;
@@ -149,6 +179,17 @@ namespace simrs.Setting
             {
                 epEmail.SetError(txtEmail, "Format Email user salah");
                 isValid = false;
+            }
+            else if (this.dataUser != null)
+            {
+                if (!this.dataUser["email"].Equals(this.txtEmail.Text))
+                {
+                    if (DB.checkRecordIsExist($"SELECT COUNT(id) FROM users WHERE email='{userEmail}'"))
+                    {
+                        epEmail.SetError(txtEmail, $"Email ({userEmail}) telah tersedia. Silahkan ganti dengan yang lain");
+                        isValid = false;
+                    }
+                }
             }
             else if (DB.checkRecordIsExist($"SELECT COUNT(id) FROM users WHERE email='{userEmail}'"))
             {
@@ -208,20 +249,44 @@ namespace simrs.Setting
                     string tanggaLahir = this.dtTanggalLahir.Value.ToString("yyyy-MM-dd");
 
                     var paramList = new List<SqlParameter>();
-                    paramList.Add(new SqlParameter("@pUsername", userName));
-                    paramList.Add(new SqlParameter("@pPassword", userPassword));
-                    paramList.Add(new SqlParameter("@pDefaultRole", role));
-                    paramList.Add(new SqlParameter("@pEmail", email));
-                    paramList.Add(new SqlParameter("@pNomorHP", nomorHP));
-                    paramList.Add(new SqlParameter("@pNamaLengkap", namaLengkap));
-                    paramList.Add(new SqlParameter("@pJK", JK));
-                    paramList.Add(new SqlParameter("@pTempatLahir", tempatLahir));
-                    paramList.Add(new SqlParameter("@pTanggalLahir", tanggaLahir));
+                    if (this.dataUser == null)
+                    {
+                        paramList.Add(new SqlParameter("@pUsername", userName));
+                        paramList.Add(new SqlParameter("@pPassword", userPassword));
+                        paramList.Add(new SqlParameter("@pDefaultRole", role));
+                        paramList.Add(new SqlParameter("@pEmail", email));
+                        paramList.Add(new SqlParameter("@pNomorHP", nomorHP));
+                        paramList.Add(new SqlParameter("@pNamaLengkap", namaLengkap));
+                        paramList.Add(new SqlParameter("@pJK", JK));
+                        paramList.Add(new SqlParameter("@pTempatLahir", tempatLahir));
+                        paramList.Add(new SqlParameter("@pTanggalLahir", tanggaLahir));
 
-                    DB.ExecuteStoredProcedure("uspAddUser", paramList);
+                        DB.ExecuteStoredProcedure("uspAddUser", paramList);
 
-                    MessageBox.Show($"Data user ({userName}) berhasil ditambah", "TAMBAH USER", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"Data user ({userName}) berhasil ditambah", "TAMBAH USER", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        paramList.Add(new SqlParameter("@pOldUserid", this.dataUser["id"]));
+                        
+                        if (!string.IsNullOrEmpty(txtUserPassword.Text.Trim()))
+                        {
+                            paramList.Add(new SqlParameter("@pPassword", userPassword));
+                        }
 
+                        paramList.Add(new SqlParameter("@pDefaultRole", role));
+                        paramList.Add(new SqlParameter("@pEmail", email));
+                        paramList.Add(new SqlParameter("@pNomorHP", nomorHP));
+                        paramList.Add(new SqlParameter("@pNamaLengkap", namaLengkap));
+                        paramList.Add(new SqlParameter("@pJK", JK));
+                        paramList.Add(new SqlParameter("@pTempatLahir", tempatLahir));
+                        paramList.Add(new SqlParameter("@pTanggalLahir", tanggaLahir));
+
+                        DB.ExecuteStoredProcedure("uspUpdateUser", paramList);
+
+                        MessageBox.Show($"Data user ({userName}) berhasil diubah", "UBAH USER", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    this.clearFrmUser();
                     this.PopulateData();
                 }
                 else
@@ -246,8 +311,6 @@ namespace simrs.Setting
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string ID = this.dgUsers.Rows[this.rowIndex].Cells[0].Value.ToString();
-            this.oldUserid = ID;
-
             string userName = this.dgUsers.Rows[this.rowIndex].Cells[1].Value.ToString();
 
             DataBase DB = new DataBase();
@@ -256,7 +319,7 @@ namespace simrs.Setting
             {
                 DB.Connect();
                 string sql = $"SELECT id, username, default_role, email, nomor_hp, nama_lengkap, jk, tempat_lahir, tanggal_lahir FROM users WHERE id='{ID}'";
-                Dictionary<string, string> dataUser = DB.GetSingleRecord(sql);
+                this.dataUser = DB.GetSingleRecord(sql);
 
                 this.txtUserName.Text = dataUser["username"];
                 this.txtUserName.Enabled = dataUser["id"] != "1";
@@ -276,8 +339,6 @@ namespace simrs.Setting
                 this.txtNamaLengkap.Text = dataUser["nama_lengkap"];
                 this.txtTempatLahir.Text = dataUser["tempat_lahir"];
                 this.dtTanggalLahir.Value = DateTime.Parse(dataUser["tanggal_lahir"]);
-
-
             }
             catch (SqlException ex)
             {
