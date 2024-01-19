@@ -89,35 +89,44 @@ namespace simrs.Setting
         /// <param name="mode"></param>
         void clearFrmUser()
         {
-            if(this.dataUser == null)
-            {
-                this.txtUserName.Clear();
-                this.txtUserPassword.Clear();
-                this.txtEmail.Clear();
-                this.txtNamaLengkap.Clear();
-                this.txtTempatLahir.Clear();
-                this.dtTanggalLahir.Value = DateTime.Now;
-                this.txtNomorHP.Clear();
-            }
-            else
-            {
-                this.txtUserPassword.Clear();
-                this.txtEmail.Clear();
-                this.txtNamaLengkap.Clear();
-                this.txtTempatLahir.Clear();
-                this.dtTanggalLahir.Value = DateTime.Now;
-                this.txtNomorHP.Clear();
-            }
-        }
-        bool ValidasiFrmUser(string mode, DataBase DB)
+            this.dataUser = null;
+
+			this.txtUserName.Clear();
+            this.txtUserName.Enabled = true;
+			epUserName.SetError(txtUserName, null);
+
+			this.cmbRoles.SelectedIndex = 0;
+            this.cmbRoles.Enabled = true;
+			epDefaultRole.SetError(cmbRoles, null);
+
+			this.txtUserPassword.Clear();
+			epUserPassword.SetError(txtUserPassword, null);
+
+			this.txtEmail.Clear();
+			epEmail.SetError(txtEmail, null);
+
+			this.txtNamaLengkap.Clear();
+            epNamaLengkap.SetError(txtNamaLengkap, null);
+
+			this.txtTempatLahir.Clear();
+			epTempatLahir.SetError(txtTempatLahir, null);
+
+			this.dtTanggalLahir.Value = DateTime.Now;
+
+			this.txtNomorHP.Clear();
+            epNomorHP.SetError(txtNomorHP, null);
+		}
+        bool ValidasiFrmUser(DataBase DB)
         {
             bool isValid = true;
 
             //cek username
             string userName = this.txtUserName.Text;
             string userEmail= this.txtEmail.Text;
+            string nomorHP = txtNomorHP.Text.Trim().Replace("-", "");
 
-            if (this.dataUser == null)
+
+			if (this.dataUser == null)
             {
 
                 if (string.IsNullOrEmpty(txtUserName.Text.Trim()))
@@ -134,11 +143,31 @@ namespace simrs.Setting
                 {
                     epUserName.SetError(txtUserName, string.Empty);
                 }
-            }
-
-            if (this.dataUser == null)
+            } 
+            else if (Convert.ToInt32(this.dataUser["id"]) != 1) //ini bukan admin
             {
-                //cek user password
+				if (string.IsNullOrEmpty(txtUserName.Text.Trim()))
+				{
+					epUserName.SetError(txtUserName, "Username jangan kosong silahkan isi");
+					isValid = false;
+				}
+				else if(!this.dataUser["username"].Equals(this.txtUserName.Text))
+				{
+					if (DB.checkRecordIsExist($"SELECT COUNT(id) FROM users WHERE username='{userName}'"))
+					{
+						epUserName.SetError(txtUserName, $"Username ({userName}) telah tersedia. Silahkan ganti dengan yang lain");
+						isValid = false;
+					}
+				}
+				else
+				{
+					epUserName.SetError(txtUserName, string.Empty);
+				}
+			}
+
+			//cek user password
+			if (this.dataUser == null)
+            { 
                 if (string.IsNullOrEmpty(txtUserPassword.Text.Trim()))
                 {
                     epUserPassword.SetError(txtUserPassword, "Password user jangan kosong silahkan isi");
@@ -201,7 +230,29 @@ namespace simrs.Setting
                 epEmail.SetError(txtEmail, string.Empty);
             }
 
-            return isValid;
+			//cek nomor hp
+			if (string.IsNullOrEmpty(txtNomorHP.Text.Trim().Replace("-", "")))
+			{
+				epNomorHP.SetError(txtNomorHP, "Nomor HP user jangan kosong silahkan isi");
+				isValid = false;
+			}
+			else if (this.dataUser != null)
+			{
+				if (!this.dataUser["nomor_hp"].Equals(txtNomorHP.Text.Trim().Replace("-", "")))
+				{
+					if (DB.checkRecordIsExist($"SELECT COUNT(id) FROM users WHERE email='{userEmail}'"))
+					{
+						epNomorHP.SetError(txtNomorHP, $"Nomor HP ({nomorHP}) telah tersedia. Silahkan ganti dengan yang lain");
+						isValid = false;
+					}
+				}
+			}
+			else if (DB.checkRecordIsExist($"SELECT COUNT(id) FROM users WHERE nomor_hp='{nomorHP}'"))
+			{
+				epNomorHP.SetError(txtNomorHP, $"Nomor HP ({nomorHP}) telah tersedia. Silahkan ganti dengan yang lain");
+				isValid = false;
+			}
+			return isValid;
         }
         private void FrmUsers_Load(object sender, EventArgs e)
         {
@@ -228,7 +279,7 @@ namespace simrs.Setting
             {
                 DB.Connect();
 
-                bool isValid = this.ValidasiFrmUser("insert", DB);
+                bool isValid = this.ValidasiFrmUser(DB);
 
                 if(isValid)
                 {
@@ -274,7 +325,12 @@ namespace simrs.Setting
                             paramList.Add(new SqlParameter("@pPassword", userPassword));
                         }
 
-                        paramList.Add(new SqlParameter("@pDefaultRole", role));
+						if (Convert.ToInt32(this.dataUser["id"]) != 1)
+                        {
+							paramList.Add(new SqlParameter("@pUsername", this.txtUserName.Text));
+						}
+
+						paramList.Add(new SqlParameter("@pDefaultRole", role));
                         paramList.Add(new SqlParameter("@pEmail", email));
                         paramList.Add(new SqlParameter("@pNomorHP", nomorHP));
                         paramList.Add(new SqlParameter("@pNamaLengkap", namaLengkap));
