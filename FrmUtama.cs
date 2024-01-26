@@ -1,4 +1,5 @@
-﻿using simrs.Setting;
+﻿using simrs.Pasien;
+using simrs.Setting;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,5 +43,12 @@ namespace simrs
             frmProfile.MdiParent = this;
             frmProfile.Show();
         }
-    }
+
+		private void rEGISTRASIAWALToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			FrmBiodataPasien frmBiodata= new FrmBiodataPasien();
+			frmBiodata.MdiParent = this;
+			frmBiodata.Show();
+		}
+	}
 }
